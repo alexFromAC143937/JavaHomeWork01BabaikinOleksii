@@ -4,7 +4,7 @@ import hw20221027.Enams.CarStatus;
 
 import java.util.Objects;
 
-public class GeneralCar implements Car, Comparable{
+public abstract class  GeneralCar implements Car, Comparable{
 
     private String name;
     private int speed;
