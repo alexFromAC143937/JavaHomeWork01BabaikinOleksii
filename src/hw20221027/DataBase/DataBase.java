@@ -17,29 +17,23 @@ public class DataBase {
         treeMap.put(car, car);
     }
 
-    public void print(){
-        System.out.println("HashMap:");
-        for(Map.Entry<Car,Car> item : map.entrySet()){
-            System.out.print(item.getValue().getName() + ", | ");
-        }
-        System.out.println();
+    public void printHashMap() {
+        System.out.println("\n HashMap:");
+        for (Map.Entry<Car, Car> item : map.entrySet()) System.out.print(item.getValue().getName() + ", | ");
+    }
 
-        System.out.println("TreeSet");
-        for(Car car : set){
-            System.out.print(car.getName() + ", | ");
-        }
-        System.out.println();
+    public void printTreeSet() {
+        System.out.println("\n TreeSet");
+        for (Car car : set)  System.out.print(car.getName() + ", | ");
+    }
 
-        System.out.println("Deque : ");
-        for(Car car : queue){
-            System.out.print(car.getName() + ", | ");
-        }
-        System.out.println();
+    public void printDeque() {
+        System.out.println("\n Deque : ");
+        for (Car car : queue) System.out.print(car.getName() + ", | ");
+    }
 
-        System.out.println("TreeMap : ");
-        for(Map.Entry<Car,Car> item : treeMap.entrySet()){
-            System.out.print(item.getValue().getName() + ", | ");
-        }
-        System.out.println();
+    public void printTreeMap() {
+        System.out.println("\n TreeMap : ");
+        for(Map.Entry<Car,Car> item : treeMap.entrySet()) System.out.print(item.getValue().getName() + ", | ");
     }
 }

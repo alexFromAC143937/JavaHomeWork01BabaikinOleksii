@@ -1,7 +1,11 @@
 package hw20221027.Car;
 
 import hw20221027.Enams.CarStatus;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class HeavyCar extends GeneralCar{
 
     private int maxWeight;
@@ -10,13 +14,4 @@ public class HeavyCar extends GeneralCar{
         super(name, status, engine, maxSpeed);
         this.maxWeight = maxWeight;
     }
-
-    public int getMaxWeight() {
-        return maxWeight;
-    }
-
-    public void setMaxWeight(int maxWeight) {
-        this.maxWeight = maxWeight;
-    }
-
 }

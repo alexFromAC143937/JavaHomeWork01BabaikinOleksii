@@ -2,44 +2,42 @@ package hw20221027.Car;
 
 import hw20221027.Enams.CarStatus;
 
-import java.util.Objects;
+public abstract class GeneralCar implements Car, Comparable {
 
-public abstract class  GeneralCar implements Car, Comparable{
-
+    private static final int STOP_SPEED = 0; // TODO created
     private String name;
     private int speed;
-    private boolean carOn = false;
+    private boolean isCarOn = false;
     private CarStatus status;
-    private Engine Engine;
+    private Engine engine;
     private int maxSpeed;
 
-    public GeneralCar(String name, CarStatus status, hw20221027.Car.Engine engine, int maxSpeed) {
+    public GeneralCar(String name, CarStatus status, Engine engine, int maxSpeed) {
         this.name = name;
         this.status = status;
-        Engine = engine;
+        this.engine = engine;
         this.maxSpeed = maxSpeed;
     }
 
     protected void setSpeed(int speed) {
 
         switch (status) {
-            case NEW:
-            case USED:
-                if (speed > this.getMaxSpeed()){
-                    System.out.printf("Max car speed is %d. A car is not able to go with the speed %d", getMaxSpeed() ,speed );
+            case NEW, USED -> {
+                if (speed > this.getMaxSpeed()) {
+                    System.out.printf("Max car speed is %d. A car is not able to go with the speed %d", getMaxSpeed(), speed);
                     speed = getMaxSpeed();
                 }
                 this.speed = speed;
                 System.out.println("Car speed : " + this.speed);
-
-                break;
-            case NOTWORKING:
-                this.speed = 0;
+            }
+            case NOTWORKING -> {
+                this.speed = STOP_SPEED;
                 System.out.println("Please, repair a car, change status. The сar speed : " + this.speed);
-                break;
-            default:
-                this.speed = 0;
+            }
+            default -> {
+                this.speed = STOP_SPEED;
                 System.out.println("Please, check a Car status. The car speed : " + this.speed);
+            }
         }
     }
 
@@ -50,7 +48,7 @@ public abstract class  GeneralCar implements Car, Comparable{
 
     @Override
     public void stop() {
-        setSpeed(0);
+        setSpeed(STOP_SPEED);
     }
 
     @Override
@@ -65,7 +63,7 @@ public abstract class  GeneralCar implements Car, Comparable{
 
     @Override
     public CarStatus getStatus() {
-        return null;
+        return status;
     }
 
     @Override
@@ -85,7 +83,7 @@ public abstract class  GeneralCar implements Car, Comparable{
 
     @Override
     public void onEngine() {
-
+        this.isCarOn = true;
     }
 
     @Override
@@ -95,14 +93,15 @@ public abstract class  GeneralCar implements Car, Comparable{
 
     @Override
     public void offEngine() {
+        this.isCarOn = false;
     }
 
     public boolean isCarOn() {
-        return carOn;
+        return isCarOn;
     }
 
     public void setCarOn(boolean carOn) {
-        this.carOn = carOn;
+        this.isCarOn = carOn;
     }
 
     public void setStatus(CarStatus status) {
@@ -110,25 +109,36 @@ public abstract class  GeneralCar implements Car, Comparable{
     }
 
     public Engine getEngine() {
-        return Engine;
+        return engine;
     }
 
     public void setEngine(Engine engine) {
-        Engine = engine;
+        this.engine = engine;
     }
 
     @Override
     public int compareTo(Object o) {
         GeneralCar generalCar = (GeneralCar) o;
         int comp = this.name.compareTo(generalCar.getName());
-        if(this.name.compareTo(generalCar.getName()) == 0){
-           return this.maxSpeed - generalCar.getMaxSpeed();
+        if (this.name.compareTo(generalCar.getName()) == 0) {
+            return this.maxSpeed - generalCar.getMaxSpeed();
         }
         return comp;
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GeneralCar that = (GeneralCar) o;
+        if (maxSpeed != that.maxSpeed) return false;
+        return name.equals(that.name);
+    }
+
+    @Override
     public int hashCode() {
-        return Objects.hash(name, maxSpeed);
+        int result = name.hashCode();
+        result = 31 * result + maxSpeed;
+        return result;
     }
 }
